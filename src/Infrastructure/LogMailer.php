@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Infrastructure\Mailer;
+namespace App\Infrastructure;
 
 use App\Domain\Shared\MailerInterface;
 use DateTimeImmutable;
@@ -10,7 +10,9 @@ use RuntimeException;
 
 final class LogMailer implements MailerInterface
 {
-    public function __construct(private readonly string $logPath) {}
+    public function __construct(private readonly string $logPath)
+    {
+    }
 
     public function send(string $to, string $subject, string $body): void
     {
