@@ -10,12 +10,12 @@
     },
     "autoload": {
         "psr-4": {
-            "EveryPay\\": "src/"
+            "App\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "EveryPay\\Tests\\": "tests/"
+            "App\\Tests\\": "tests/"
         }
     },
     "scripts": {
