@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit;
 
 use App\Application\Query\ChargeView;
-use App\Application\Service\ChargeReportBuilder;
+use App\Application\ChargeReportBuilder;
 use PHPUnit\Framework\TestCase;
 
 final class ChargeReportBuilderTest extends TestCase
