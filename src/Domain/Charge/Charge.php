@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Charge;
 
-use App\Domain\Shared\ValueIbject\MerchantId;
+use App\Domain\Shared\MerchantId;
 use DateTimeImmutable;
 
 final class Charge
@@ -15,7 +15,7 @@ final class Charge
         private readonly Money $amount,
         private readonly ChargeStatus $status,
         private readonly string $pspReference,
-        private readonly DateTimeImmutable $createdAt
+        private readonly DateTimeImmutable $createdAt,
     ) {
     }
 
@@ -25,7 +25,7 @@ final class Charge
         Money $amount,
         ChargeStatus $status,
         string $pspReference,
-        DateTimeImmutable $createdAt
+        DateTimeImmutable $createdAt,
     ): self {
         return new self($id, $merchantId, $amount, $status, $pspReference, $createdAt);
     }

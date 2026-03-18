@@ -15,11 +15,11 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "App\\Tests\\": "tests/"
+            "Tests\\": "tests/"
         }
     },
     "scripts": {
-        "test": "phpunit --configuration phpunit.xml"
+        "test": "./vendor/bin/phpunit --configuration phpunit.xml"
     },
     "config": {
         "optimize-autoloader": true,

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Domain\Charge;
 
-use App\Domain\Shared\ValueObject\MerchantId;
+use App\Domain\Shared\MerchantId;
 use DateTimeImmutable;
 
 interface ChargeRepositoryInterface

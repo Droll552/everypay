@@ -1,0 +1,25 @@
+#!/usr/bin/env php
+<?php
+
+declare(strict_types=1);
+
+require_once __DIR__ . '/../vendor/autoload.php';
+
+use App\Infrastructure\Container;
+
+$config = require __DIR__ . '/../config/app.php';
+$container = new Container($config);
+
+$argv = $_SERVER['argv'] ?? [];
+$command = $argv[1] ?? null;
+
+if ($command === 'report:send') {
+    $args = array_slice($argv, 2);
+    $exitCode = $container->getSendReportCommand()->run($args);
+    exit($exitCode);
+}
+
+fwrite(STDERR, "Unknown command: " . ($command ?? '(none)') . "\n");
+fwrite(STDERR, "Available commands:\n");
+fwrite(STDERR, "  report:send <merchant_id> <from_date> <to_date>\n");
+exit(1);
