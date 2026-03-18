@@ -12,7 +12,7 @@ final class Money
     private int $amount;
     private string $currency;
 
-    private function __construct(int $amount, string $currency)
+    public function __construct(int $amount, string $currency)
     {
         if ($amount < 0) {
             throw new InvalidArgumentException('Amount cannot be negative');
