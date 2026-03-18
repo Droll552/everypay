@@ -12,7 +12,7 @@ use App\Infrastructure\Console\SendReportCommand;
 use App\Infrastructure\Http\ChargeHandler;
 use App\Infrastructure\Http\AuthMiddleware;
 use App\Infrastructure\Http\Router;
-use App\Infrastructure\Mailer\LogMailer;
+use App\Infrastructure\LogMailer;
 use App\Infrastructure\Persistence\SqliteChargeRepository;
 use App\Infrastructure\Persistence\SqliteMerchantRepository;
 use App\Infrastructure\PSP\FakePaypal;
