@@ -29,7 +29,7 @@ final class ChargeReportBuilder
 
         foreach ($charges as $charge) {
             if ($charge->status === 'successful') {
-                $sucecessful++;
+                $successful++;
                 $totalAmount += $charge->amount;
             } else {
                 $failed++;
@@ -47,7 +47,7 @@ final class ChargeReportBuilder
         }
 
         $currency = count($charges) > 0 ? $charges[0]->currency : 'N/A';
-        $summary = implode('\n', [
+        $summary = implode("\n", [
             sprintf('Merchant         : %s', $merchantName),
             sprintf('Period           : %s – %s', $from, $to),
             '',
