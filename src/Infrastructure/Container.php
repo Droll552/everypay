@@ -8,7 +8,7 @@ use App\Application\Command\CreateChargeHandler;
 use App\Application\Command\SendChargeReportHandler;
 use App\Application\Query\GetChargesForPeriodHandler;
 use App\Application\ChargeReportBuilder;
-use App\Infrastructure\Console\SendReportCommand;
+use App\Infrastructure\SendReportCommand;
 use App\Infrastructure\Http\ChargeHandler;
 use App\Infrastructure\Http\AuthMiddleware;
 use App\Infrastructure\Http\Router;
