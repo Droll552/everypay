@@ -7,16 +7,27 @@ namespace App\Infrastructure\Http;
 use App\Domain\Merchant\MerchantRepositoryInterface;
 use App\Infrastructure\Http\Request;
 use App\Infrastructure\Http\Response;
+use App\Domain\Merchant\Merchant;
 
 final class AuthMiddleware
 {
-    public function __construct(private MerchantRepositoryInterface $merchantRepository){}
+    /**
+     * Cached merchant from the last successful handle() call.
+     * Avoids a second DB round-trip when resolveMerchantId() is called immediately after.
+     */
+    private ?Merchant $resolvedMerchant = null;
+    public function __construct(private MerchantRepositoryInterface $merchantRepository)
+    {
+    }
 
     /**
      * Validate Bearer token and inject resolved merchant id into the request attributes.
      * Returns a 401 Response on failure, or null if authentication passes.
      */
-    public function handle(Request $request): ?Response {
+    public function handle(Request $request): ?Response
+    {
+        $this->resolvedMerchant = null;
+
         $token = $request->getBearerToken();
 
         if ($token === null) {
@@ -29,6 +40,8 @@ final class AuthMiddleware
             return Response::unauthorized('Invalid API key.');
         }
 
+        $this->resolvedMerchant = $merchant;
+
         return null;
     }
 
@@ -38,11 +51,12 @@ final class AuthMiddleware
      */
     public function resolveMerchantId(Request $request): string
     {
-        $token    = $request->getBearerToken();
-        $merchant = $this->merchantRepository->findByApiKey((string) $token);
+        if ($this->resolvedMerchant === null) {
+            throw new \LogicException('resolveMerchantId() called before a successful handle().');
+        }
 
-        // @phpstan-ignore-next-line — guaranteed non-null after handle() passes
-        return $merchant->getId()->getValue();
+        return $this->resolvedMerchant->getId()->getValue();
+
     }
 
 }

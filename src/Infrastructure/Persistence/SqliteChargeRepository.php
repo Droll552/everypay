@@ -84,7 +84,7 @@ final class SqliteChargeRepository implements ChargeRepositoryInterface
      */
     private function hydrate(array $row): Charge
     {
-        $status = ChargeStatus::from($row['status']);
+        $status = ChargeStatus::tryFrom($row['status']);
 
         if ($status === null) {
             throw new RuntimeException(sprintf('Unknown charge status "%s".', $row['status']));
