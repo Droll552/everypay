@@ -14,6 +14,7 @@ use App\Domain\Shared\MerchantId;
 use App\Infrastructure\PSP\PspRegistry;
 use DateTimeImmutable;
 use RuntimeException;
+use Ramsey\Uuid\Uuid;
 
 final class CreateChargeHandler
 {
@@ -38,7 +39,7 @@ final class CreateChargeHandler
 
         $pspResult = $psp->charge($money, $command->credentials);
 
-        $chargeId = ChargeId::fromString($this->generateId());
+        $chargeId = ChargeId::fromString(Uuid::uuid4()->toString());
         $status = $pspResult->isSuccess() ? ChargeStatus::Successful : ChargeStatus::Failed;
 
         $charge = Charge::create(
@@ -59,21 +60,5 @@ final class CreateChargeHandler
             errorMessage: $pspResult->getErrorMEssage()
         );
 
-    }
-
-    // create uuidv4
-    private function generateId(): string
-    {
-        return sprintf(
-            '%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-            mt_rand(0, 0xffff),
-            mt_rand(0, 0xffff),
-            mt_rand(0, 0xffff),
-            mt_rand(0, 0x0fff) | 0x4000,
-            mt_rand(0, 0x3fff) | 0x8000,
-            mt_rand(0, 0xffff),
-            mt_rand(0, 0xffff),
-            mt_rand(0, 0xffff),
-        );
     }
 }
