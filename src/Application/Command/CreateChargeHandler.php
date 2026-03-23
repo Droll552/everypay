@@ -57,7 +57,7 @@ final class CreateChargeHandler
             chargeId: $chargeId->getValue(),
             status: $status->value,
             pspReference: $pspResult->getReference(),
-            errorMessage: $pspResult->getErrorMEssage()
+            errorMessage: $pspResult->getErrorMessage()
         );
 
     }
